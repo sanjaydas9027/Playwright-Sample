@@ -6,7 +6,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto("https://rahulshettyacademy.com/angularpractice/");
 });
 
-test.only("Angular page test", async ({ page }) => {
+test("Angular page test", async ({ page }) => {
   // directly check checkbox  using it's  label as reference
   await page.getByLabel("Check me out if you Love IceCreams!").click();
   const status = await page.locator("#exampleCheck1").isChecked();
@@ -21,11 +21,19 @@ test.only("Angular page test", async ({ page }) => {
   await page.getByLabel("Gender").selectOption("Female");
   let text = await page.locator("#exampleFormControlSelect1").textContent();
   console.log(text);
-/*
+  /*
 not work 
 await page.getByLabel("Name").fill("Sanjay");
 */
 
+  await page.getByPlaceholder("Password").fill("admin123");
+  await expect(page.getByPlaceholder("Password")).toHaveValue("admin123");
+  await page
+    .locator("app-cards")
+    .filter({ hasText: "Nokia Edge" })
+    .getByRole("button")
+    .click();
 
-
+  
+    
 });
